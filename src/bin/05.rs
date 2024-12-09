@@ -68,8 +68,6 @@ fn fix_update(update:Update) -> u32{
 
 pub fn part_two(input: &str) -> Option<u32> {
   let (rules, lists) = build_rules_updates(input);
-
-
   //build list of updates and their related rules
   let mut updates:Vec<Update> = lists.iter().map(|list|
     Update{
@@ -77,10 +75,8 @@ pub fn part_two(input: &str) -> Option<u32> {
       rules:rules.clone().into_iter().filter(|(l,r)| list.contains(l) && list.contains(r)).collect(),
     }
   ).collect();
-
   //remove any that are already ordered
   updates = updates.into_iter().filter(|u| u.rules.iter().any(|(l,r)| u.order.iter().position(|v| v == l) > u.order.iter().position(|v| v == r))).collect();
-
   //fix and add up everything
   Some( updates.into_iter().map(|u| fix_update(u)).sum())
 
