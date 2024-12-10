@@ -1,5 +1,8 @@
 use std::collections::HashSet;
 
+use advent_of_code::Coord;
+
+
 advent_of_code::solution!(6);
 
 
@@ -16,37 +19,6 @@ impl PartialEq for Visited {
 }
 
 
-
-#[derive(Copy, Clone, Eq, Hash, Debug)]
-pub struct Coord{
-  x:i32,
-  y:i32,
-}
-
-impl PartialEq for Coord {
-  fn eq(&self, other: &Self) -> bool {
-    self.x == other.x && self.y == other.y
-  }
-}
-
-impl Coord{
-  pub fn add(&self, coord:Coord) -> Coord{
-    Coord{
-      x: self.x + coord.x,
-      y: self.y + coord.y,
-    }
-  }
-  pub fn rotate_ccw(&mut self){
-    let temp = self.x;
-    self.x = -self.y;
-    self.y = temp;
-  }
-  pub fn rotate_cw(&mut self){
-    let temp = self.x;
-    self.x = self.y;
-    self.y = -temp;
-  }
-}
 
 #[derive(Clone)]
 pub struct Map{
