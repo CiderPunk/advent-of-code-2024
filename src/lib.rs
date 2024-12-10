@@ -22,6 +22,14 @@ impl Coord{
       y: self.y + coord.y,
     }
   }  
+  pub fn add_scale(&self, coord:Coord, scale:i32) -> Coord{
+    Coord{
+      x: self.x + coord.x * scale,
+      y: self.y + coord.y * scale,
+    }
+  }  
+
+
   pub fn sub(&self, coord:Coord) -> Coord{
     Coord{
       x: self.x - coord.x,

@@ -64,8 +64,29 @@ pub fn part_one(input: &str) -> Option<u32> {
   Some(result.iter().len() as u32)
 }
 
-pub fn part_two(_input: &str) -> Option<u32> {
-    None
+pub fn part_two(input: &str) -> Option<u32> {
+  let map = build_map(input);
+  let mut result:HashSet<Coord> = HashSet::with_capacity(map.antenna.len() * 10);
+  map.antenna.iter().for_each(|(_,list)|{
+    //dbg!(list);
+    list.iter().for_each(|current|{  
+      list.iter().for_each(|compare|{
+        if current == compare {
+          return;
+        }
+        let diff = current.sub(*compare); 
+        let mut count = 0; 
+        while inside_map(&map, current.add_scale(diff, count)){
+          let antinode = current.add_scale(diff, count);
+          result.insert(antinode);
+          count +=1;
+        }
+      
+      });
+    });
+  });
+  //dbg!(&result);
+  Some(result.iter().len() as u32)
 }
 
 #[cfg(test)]
@@ -81,6 +102,6 @@ mod tests {
     #[test]
     fn test_part_two() {
         let result = part_two(&advent_of_code::template::read_file("examples", DAY));
-        assert_eq!(result, None);
+        assert_eq!(result, Some(34));
     }
 }
