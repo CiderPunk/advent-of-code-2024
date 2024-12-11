@@ -12,11 +12,8 @@ pub fn part_one(input: &str) -> Option<u128> {
       gaps.push(size);
     }
   });
-
-
   let mut total:u128 = 0;
   let mut pos:usize = 0;
-
   //let files_iter = files.iter_mut().enumerate();
 
   let mut spaces = gaps.iter();
@@ -53,10 +50,8 @@ pub fn part_one(input: &str) -> Option<u128> {
       //dbg!(total, pos, tail_file_num);
       pos+=1;
       tail_file_length -= 1;
-
     }
   }
-
   for _ in 0 .. tail_file_length{
     total += (tail_file_num * pos) as u128;
     //dbg!(total, pos, tail_file_num);
@@ -66,8 +61,26 @@ pub fn part_one(input: &str) -> Option<u128> {
   Some(total)
 }
 
-pub fn part_two(_input: &str) -> Option<u32> {
-    None
+struct File{
+  position:u32,
+  length:u32,
+}
+
+
+pub fn part_two(input: &str) -> Option<u32> {
+  let mut files:Vec<u32> = vec![];
+  let mut gaps:Vec<u32> = vec![];
+  let mut pos:u32 = 0;
+  input.chars().enumerate().for_each(|(i,c)| {
+    let size= c.to_digit(10 as u32).unwrap() as u32;
+    if i % 2 == 0{
+      files.push(size);
+    }  
+    else{ 
+      gaps.push(size);
+    }
+    pos += size;
+  });
 }
 
 #[cfg(test)]
