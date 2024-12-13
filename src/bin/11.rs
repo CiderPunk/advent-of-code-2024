@@ -2,9 +2,6 @@ use std::collections::HashMap;
 
 advent_of_code::solution!(11);
 
-
-
-
 pub fn part_one(input: &str) -> Option<u64> {
   let mut cache:StoneCache = HashMap::new();
   let stones:Vec<u64> = input.split_ascii_whitespace().map(|v| v.parse::<u64>().unwrap()).collect();
