@@ -37,7 +37,10 @@ impl<T:Num+Copy> CoordGeneric<T>{
       y: self.y - coord.y,
     }
   }
-}
+
+
+}  
+
 
 impl<T:Num+Copy+Signed> CoordGeneric<T>{
 
@@ -51,6 +54,14 @@ impl<T:Num+Copy+Signed> CoordGeneric<T>{
     self.x = self.y;
     self.y = -temp;
   }
+  pub fn mod_components(&self, mod_target:CoordGeneric<T>) -> CoordGeneric<T>{
+    CoordGeneric{
+      x: self.x % mod_target.x,
+      y: self.y % mod_target.y,
+    }
+  }
+
+
 }
 
 pub type Coord = CoordGeneric<i32>;
