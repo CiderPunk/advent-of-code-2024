@@ -52,9 +52,8 @@ pub fn part_two(input: &str) -> Option<u32> {
   let sector_size:i32 = 10;
   let size = Coord { x:101, y:103 };
   let mut robots = parse_robots(input);
-
   let sector_map_size = Coord{x:size.x / sector_size, y:size.y / sector_size };
-  dbg!(sector_map_size);
+  //dbg!(sector_map_size);
   let expected_average:i32 = robots.len() as i32 / (sector_map_size.x * sector_map_size.y);
   let mut count = 0;
   let mut tree_found = false;
@@ -62,7 +61,7 @@ pub fn part_two(input: &str) -> Option<u32> {
 
 
   while  !tree_found{
-    
+
     count+=1;
     let mut sectors:Vec<i32> = vec![0; (sector_map_size.x * sector_map_size.y) as usize ];
     robots.iter_mut().for_each(|robot| {
@@ -71,7 +70,7 @@ pub fn part_two(input: &str) -> Option<u32> {
       if robot.pos.y < 0 { robot.pos.y += size.y;}
 
       let sector = Coord{ x:robot.pos.x / sector_size, y: robot.pos.y / sector_size };
-      if (sector.x < sector_map_size.x && sector.y < sector_map_size.y){  
+      if sector.x < sector_map_size.x && sector.y < sector_map_size.y{  
         //dbg!(robot.pos, sector);
         sectors[((robot.pos.y / sector_size) * (size.x / sector_size) + (robot.pos.x / sector_size)) as usize] +=1;
       }
