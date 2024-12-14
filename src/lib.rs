@@ -1,41 +1,46 @@
+use num::{Num, Signed};
+
+
 pub mod template;
 
 // Use this file to add helper functions and additional modules.
 
 
 #[derive(Copy, Clone, Eq, Hash, Debug)]
-pub struct Coord{
-  pub x:i32,
-  pub y:i32,
+pub struct CoordGeneric<T:Num>{
+  pub x:T,
+  pub y:T,
 }
 
-impl PartialEq for Coord {
+impl<T:Num> PartialEq for CoordGeneric<T> {
   fn eq(&self, other: &Self) -> bool {
     self.x == other.x && self.y == other.y
   }
 }
 
-impl Coord{
-  pub fn add(&self, coord:Coord) -> Coord{
-    Coord{
+impl<T:Num+Copy> CoordGeneric<T>{
+  pub fn add(&self, coord:CoordGeneric<T>) -> CoordGeneric<T>{
+    CoordGeneric{
       x: self.x + coord.x,
       y: self.y + coord.y,
     }
   }  
-  pub fn add_scale(&self, coord:Coord, scale:i32) -> Coord{
-    Coord{
+  pub fn add_scale(&self, coord:CoordGeneric<T>, scale:T) -> CoordGeneric<T>{
+    CoordGeneric{
       x: self.x + coord.x * scale,
       y: self.y + coord.y * scale,
     }
   }  
-
-
-  pub fn sub(&self, coord:Coord) -> Coord{
-    Coord{
+  pub fn sub(&self, coord:CoordGeneric<T>) -> CoordGeneric<T>{
+    CoordGeneric{
       x: self.x - coord.x,
       y: self.y - coord.y,
     }
   }
+}
+
+impl<T:Num+Copy+Signed> CoordGeneric<T>{
+
   pub fn rotate_ccw(&mut self){
     let temp = self.x;
     self.x = -self.y;
@@ -47,3 +52,5 @@ impl Coord{
     self.y = -temp;
   }
 }
+
+pub type Coord = CoordGeneric<i32>;
