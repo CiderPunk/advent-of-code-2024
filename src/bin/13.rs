@@ -33,7 +33,7 @@ pub fn part_one(input: &str) -> Option<u64> {
   //Some(machines.iter().map(|machine| find_cheapest_solution(machine)).sum())
   Some(machines.iter().map(|machine| calc_cheapest(machine)).sum())
 }
-
+/*
 fn find_cheapest_solution(machine: &Machine) -> u32 {
   let mut current:CoordGeneric<i64> = machine.prize;
   let mut b_pushes = 0;
@@ -48,7 +48,7 @@ fn find_cheapest_solution(machine: &Machine) -> u32 {
   }
   ((best.0 * 3) + best.1) as u32
 }
-
+ */
 fn calc_cheapest(machine: &Machine) -> u64 {
   let top = (machine.prize.y * machine.a.x) - (machine.prize.x * machine.a.y);
   let bottom = (machine.b.y * machine.a.x) - (machine.b.x * machine.a.y);
